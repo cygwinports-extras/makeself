@@ -1,0 +1,22 @@
+GIT_URI="git://github.com/megastep/makeself.git"
+# so far no git tags :-(
+GIT_REV=0da478c
+inherit git
+
+DESCRIPTION="Script for generating self-extractable archives"
+HOMEPAGE="http://megastep.org/makeself/"
+
+src_compile() { :; }
+
+src_test() {
+	cd ${T}
+	rm -f makeself.run
+	${S}/makeself.sh --notemp --lsm ${S}/makeself.lsm ${S} makeself.run "Makeself"
+	sh makeself.run
+}
+
+src_install() {
+	cd ${S}
+	dobin *.sh
+	doman *.1
+}
